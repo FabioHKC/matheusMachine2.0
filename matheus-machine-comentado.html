@@ -4,100 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
     <title>Conversor de Bases</title>
-    <!-- estilo css -->
-    <style>
-        /* estilo para o corpo da página */
-        body {
-            font-family: Arial, sans-serif; /* define a fonte utilizada */
-            background-color: #63B1BC; /* define a cor de fundo do corpo da página */
-            margin: 0; /* remove margens externas */
-            padding: 0; /* remove preenchimento externo */
-        }
-
-        /* estilo para o contêiner principal */
-        #container {
-            width: 80%; /* define a largura do contêiner */
-            margin: 50px auto; /* centraliza o contêiner horizontalmente */
-            text-align: center; /* alinha o conteúdo ao centro */
-        }
-
-        /* estilo para o cabeçalho */
-        h1 {
-            color: #1F2A44; /* define a cor do texto do cabeçalho */
-        }
-
-        /* estilo para a entrada de texto */
-        input[type="text"] {
-            padding: 8px; /* define o preenchimento interno */
-            font-size: 16px; /* define o tamanho da fonte */
-            border-radius: 5px; /* define o raio das bordas */
-        }
-
-        /* estilo para seleção e botão */
-        select,
-        button {
-            padding: 8px; /* define o preenchimento interno */
-            font-size: 16px; /* define o tamanho da fonte */
-            border-radius: 5px; /* define o raio das bordas */
-            cursor: pointer; /* altera o cursor ao passar por cima */
-        }
-
-        /* estilo para o botão */
-        button {
-            background-color: #ED145B; /* define a cor de fundo do botão */
-            color: #FFFFFF; /* define a cor do texto do botão */
-            border: none; /* remove a borda do botão */
-        }
-
-        /* estilo para o botão ao passar o mouse por cima */
-        button:hover {
-            background-color: #EFB661; /* altera a cor de fundo ao passar o mouse */
-        }
-
-        /* estilo para a saída de resultados */
-        #output {
-            margin-top: 20px; /* define a margem superior */
-            padding: 10px; /* define o preenchimento interno */
-            border-radius: 5px; /* define o raio das bordas */
-            background-color: #D0D3D4; /* define a cor de fundo */
-            border: 1px solid #63666A; /* define a borda */
-            text-align: left; /* alinha o texto à esquerda */
-            display: none; /* inicialmente oculta a saída */
-        }
-    </style>
-
 </head>
 
 <body>
     <!-- contêiner principal -->
     <div id="container">
         <!-- título da página -->
-        <h1>Matheus's Machine</h1>
-        <!-- entrada de valor -->
-        <input id="inputValue" type="text" placeholder="Digite o valor">
-        <!-- seleção da base -->
-        <select id="inputBase">
-            <option value="decimal">Decimal</option>
-            <option value="hexadecimal">Hexadecimal</option>
-            <option value="octal">Octal</option>
-            <option value="binario">Binário</option>
-        </select>
-        <br><br>
-        <!-- opções de conversão -->
-        <h3>Converter para:</h3>
-        <input type="checkbox" id="convertDecimal"><label for="convertDecimal">Decimal</label>
-        <input type="checkbox" id="convertHexadecimal"><label for="convertHexadecimal">Hexadecimal</label>
-        <input type="checkbox" id="convertOctal"><label for="convertOctal">Octal</label>
-        <input type="checkbox" id="convertBinario"><label for="convertBinario">Binário</label>
-        <br><br>
-        <!-- botão de conversão -->
-        <button onclick="converter()">Converter</button>
-        <!-- saída de resultados -->
-        <div id="output"></div>
+        <h1>Bem vindo ao Matheus's Machine 2.0</h1>
+        <div id="secaoConversor">
+            <h2>Conversor</h2>
+            <!-- entrada de valor -->
+            <input id="inputValue" type="text" placeholder="Digite o valor">
+            <!-- seleção da base -->
+            <select id="inputBase">
+                <option value="decimal">Decimal</option>
+                <option value="hexadecimal">Hexadecimal</option>
+                <option value="octal">Octal</option>
+                <option value="binario">Binário</option>
+            </select>
+            <br><br>
+            <!-- opções de conversão -->
+            <input type="checkbox" id="convertDecimal"><label for="convertDecimal">Decimal</label>
+            <input type="checkbox" id="convertHexadecimal"><label for="convertHexadecimal">Hexadecimal</label>
+            <input type="checkbox" id="convertOctal"><label for="convertOctal">Octal</label>
+            <input type="checkbox" id="convertBinario"><label for="convertBinario">Binário</label>
+            <br><br>
+            <!-- botão de conversão -->
+            <button onclick="converter()">Converter</button>
+            <!-- saída de resultados -->
+            <div id="output"></div>
+        </div>
+        <div id="secaoOperacao">
+            <h2>Operações aritméticas</h2>
+            <input type="text" id="inputPrimeiroValor" 
+                    placeholder="Informe o primeiro valor"><br>
+            <select id="selectOperacao">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select><br>
+            <input type="text" id="inputSegundoValor" 
+                    placeholder="Informe o segundo valor"><br>
+            <select id="inputBase2">
+                <option value="decimal">Decimal</option>
+                <option value="hexadecimal">Hexadecimal</option>
+                <option value="octal">Octal</option>
+                <option value="binario">Binário</option>
+            </select><br>
+            <button onclick="realizarOperacao()">Calcular</button>
+            <div id="resultado"></div>
+        </div>
     </div>
     <!-- script javascript -->
     <script>
+
+        function realizarOperacao(){
+            const operacao = selectOperacao.value
+            const baseInformada = inputBase2.value
+            var primeiroValorDecimal = parseInt(inputPrimeiroValor.value, baseInformada === 'hexadecimal' ? 16 : baseInformada === 'octal' ? 8 : baseInformada === 'binario' ? 2 : 10);
+            var segundoValorDecimal = parseInt(inputSegundoValor.value, baseInformada === 'hexadecimal' ? 16 : baseInformada === 'octal' ? 8 : baseInformada === 'binario' ? 2 : 10);
+            var calculo = 0
+
+            resultado.innerHTML = ""
+            resultado.style.display = 'block';
+
+            if (!validarEntrada(inputPrimeiroValor.value, baseInformada)
+                || !validarEntrada(inputSegundoValor.value, baseInformada)) {
+                alert('Por favor, insira um número válido para a base selecionada' +
+                        ' para a resolução do cálculo'
+                );
+                return;
+            }
+
+            if(operacao == "+"){
+                calculo = primeiroValorDecimal + segundoValorDecimal
+            }
+            else if(operacao == "-"){
+                calculo = primeiroValorDecimal - segundoValorDecimal
+            }
+            else if(operacao == "*"){
+                calculo = primeiroValorDecimal * segundoValorDecimal
+            }
+            else {
+                calculo = primeiroValorDecimal / segundoValorDecimal
+            }
+
+            if(baseInformada == "decimal"){
+                resultado.innerHTML = calculo
+            }
+            else if(baseInformada == "hexadecimal"){
+                resultado.innerHTML = calculo.toString(16)
+            }
+            else if(baseInformada == "octal"){
+                resultado.innerHTML = calculo.toString(8)
+            }
+            else{
+                resultado.innerHTML = calculo.toString(2)
+            }
+        }
+        
         // função para converter os valores
         function converter() {
             var inputValue = document.getElementById('inputValue').value; // obtém o valor de entrada
